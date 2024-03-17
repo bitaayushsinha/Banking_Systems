@@ -6,15 +6,19 @@ public class Bank {
         int acc_no, choice;
         String pass;
         System.out.println("""
+                =======================================================
                 1. Create Account
                 2. Login
                 3. Find Account Number
                 4. Exit
+                ========================================================
                 """
         );
-        System.out.println("Enter Choice");
+        System.out.println("Enter Choice: ");
         Scanner input = new Scanner(System.in);
         choice = input.nextInt();
+
+        System.out.println("\n========================================================");
         switch (choice){
             case 1:
                 CreateAccount.create();
@@ -26,6 +30,7 @@ public class Bank {
                 Find.find();
                 break;
             case 4:
+                System.out.println("Exiting...");
                 break;
             default:
                 System.out.println("Invalid Choice\n\n");
