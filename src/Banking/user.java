@@ -1,8 +1,4 @@
 package Banking;
-
-import java.util.Arrays;
-import java.util.Scanner;
-
 public class User {
     private long acc_no, phone;
     private double bal;
@@ -27,9 +23,12 @@ public class User {
     public double getBalance(){return bal;}
     public void deposit(double money){bal += money;}
     public void withdraw(double money){
-        if (bal>= money){
+        if (money <= 0) {
+            System.out.println("Please enter a valid amount to withdraw");
+
+        } else if (bal>= money) {
             bal -= money;
-        }else{System.out.println("You only have "+bal+" amount of money!!!!!");}
+        }else{System.out.println("Your account balance is less than entered amount !!!");}
     }
 
 }

@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class Bank {
 
     public static User[] Accounts = new User[]{
-            new User(100001, "Aayush", "aayush18", "Savings", 50551.00d, 9262857521L),
-            new User(100002, "Aryan Singh", "qwertyuiop", "Current", 2550051.99d, 9518307223L),
-            new User(100003, "Rishi", "12345678", "Savings", 1011.00d, 9832432175L),
+            new User(100001, "Aayush", "aayush18", "Savings", 50000.00d, 9262857521L),
+            new User(100002, "Amruth", "qwer", "Current", 2550.00d, 9876543210L),
+            new User(100003, "Rishi", "1234", "Savings", 1011.00d, 9123456789L),
     };
 
     public static void NewUser() {
@@ -20,7 +20,7 @@ public class Bank {
         System.out.println("Phone: ");
         long phone = new Scanner(System.in).nextLong();
 
-        System.out.println("Press c for Current Account (Default Savings)");
+        System.out.println("Press c for Current Account (Default: Savings)");
         String cur = new Scanner(System.in).nextLine();
         if (cur.equals("c") || cur.equals("C")) {
             System.out.println("Current Account!\n");
@@ -33,6 +33,7 @@ public class Bank {
         User newUser = new User(100000 + Accounts.length + 1, name, pass, cur, 0, phone);
         Accounts = Arrays.copyOf(Accounts, Accounts.length + 1);
         Accounts[Accounts.length - 1] = newUser;
+        System.out.println("Your Account Number: "+String.valueOf(newUser.getAcc_no())+"\n\n");
     }
 
     public static User Login() {
@@ -45,7 +46,7 @@ public class Bank {
 
         for (User nowUser : Accounts) {
             if(phone == nowUser.getPhone() && pass.equals(nowUser.getPass())){
-                System.out.println("Logging Success...");
+                System.out.println("Logging Success..");
                 return nowUser;
             }
         }
@@ -56,10 +57,10 @@ public class Bank {
         if(user1.getBalance()>=money){
             user1.withdraw(money);
             user2.deposit(money);
-            System.out.println("Balance of " + user1.getName() + " has " + String.valueOf(user1.getBalance()));
+            System.out.println("Balance of " + user1.getName() + " : " + String.valueOf(user1.getBalance()));
             System.out.println("\nTransfer Success!!\n");
         }else{
-            System.out.println("Not enough Money!!\n");
+            System.out.println("Not enough Money for the required transaction!!\n");
         }
     }
 
@@ -69,24 +70,22 @@ public class Bank {
         while (true) {
             System.out.println("""
                     ========================================================
+                    ||         WELCOME TO OUR BANKING APPLICATION         ||
+                    |======================================================|
                     || 1. Create Account                                  ||
                     || 2. Login                                           ||
-                    || 3. Transfer                                        ||
+                    || 3. Transfer Money                                  ||
                     || 4. Exit                                            ||
                     ========================================================
                     """
             );
             System.out.println("Enter Choice: ");
-            Scanner input = new Scanner(System.in);
-            choice = input.nextInt();
+             choice = new Scanner(System.in).nextInt();
 
             System.out.println("\n========================================================");
             switch (choice) {
                 case 1:
                     NewUser();
-                    for (User nowUser : Accounts) {
-                        System.out.println(String.valueOf(nowUser.getAcc_no()) +" : "+ nowUser.getName()+"\n");
-                    }
                     break;
                 case 2:
                     User now_user = Login();
@@ -113,22 +112,22 @@ public class Bank {
                                     System.out.println("Balance : " + String.valueOf(now_user.getBalance())+"\n");
                                     break;
                                 case 2:
-                                    System.out.println("How Much? : ");
-                                    Scanner money = new Scanner(System.in);
-                                    double Money = money.nextDouble();
+                                    System.out.println("Enter the amount to be deposited: ");
+                                    double Money = new Scanner(System.in).nextDouble();
                                     now_user.deposit(Money);
                                     System.out.println("Balance of " + now_user.getName() + " has " + String.valueOf(now_user.getBalance())+"\n");
                                     break;
                                 case 3:
-                                    System.out.println("How Much? : ");
-                                    Scanner money1 = new Scanner(System.in);
-                                    double Money1 = money1.nextDouble();
+                                    System.out.println("Enter the amount to withdraw: ");
+                                    double Money1 = new Scanner(System.in).nextDouble();
                                     now_user.withdraw(Money1);
-                                    System.out.println("Balance of " + now_user.getName() + " has " + String.valueOf(now_user.getBalance())+"\n");
+                                    System.out.println("Balance of " + now_user.getName() + " : " + String.valueOf(now_user.getBalance())+"\n");
                                     break;
                                 case 4:
-                                    System.out.println("Exiting...");
+                                    System.out.println("Going to home page..");
                                     break;
+                                default:
+                                    System.out.println("Invalid Choice\n\n========================================================\n");
                             }
                             if(choice2==4){
                                 break;
@@ -137,17 +136,15 @@ public class Bank {
                     }
                     break;
                 case 3:
-                    System.out.println("How Much? : ");
-                    Scanner money = new Scanner(System.in);
-                    double Money = money.nextDouble();
+                    System.out.println("Enter the amount to be sent : ");
+                    double Money = new Scanner(System.in).nextDouble();
                     System.out.println("Login Info for Payer? : \n");
                     User User1 = Login();
                     if (User1 == null){
-                        System.out.println("Logging Failure... Invalid Credentials");
+                        System.out.println("Logging Failure.. Invalid Credentials");
                     }else {
                         System.out.println("\nAccount No. for recipient? : ");
-                        Scanner u2 = new Scanner(System.in);
-                        int acc2 = u2.nextInt();
+                        int acc2 = new Scanner(System.in).nextInt();
                         boolean flag = false;
                         for (User User2 : Accounts) {
                             if(acc2 == User2.getAcc_no()){
@@ -161,7 +158,7 @@ public class Bank {
                     }
                     break;
                 case 4:
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting..Thanks for Visiting.");
                     break;
                 default:
                     System.out.println("Invalid Choice\n\n========================================================\n");
